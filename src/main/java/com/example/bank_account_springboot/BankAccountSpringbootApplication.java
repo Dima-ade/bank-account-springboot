@@ -14,7 +14,6 @@ import java.util.HashSet;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.example.bank_account_springboot.controller"})
-//@EntityScan(/*basePackages = {"com.example.bank_account_springboot.entity"},*/basePackageClasses= BankAccountDto.class)
 public class BankAccountSpringbootApplication {
 
 	public static void main(String[] args) {

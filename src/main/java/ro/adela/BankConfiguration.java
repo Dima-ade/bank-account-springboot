@@ -47,19 +47,10 @@ import static org.hibernate.cfg.AvailableSettings.*;
 @Import(value = {AccountsConfiguration.class})
 @EntityScan(basePackages = {"ro.adela.bank"})
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = {"ro.adela.repository"})
 public class BankConfiguration {
 
     public BankConfiguration() {
     }
-
-
-//    @Bean
-//    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
-//        JpaTransactionManager txManager = new JpaTransactionManager();
-//        txManager.setEntityManagerFactory(entityManagerFactory);
-//        return txManager;
-//    }
 
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
@@ -68,12 +59,7 @@ public class BankConfiguration {
 
         return transactionManager;
     }
-
-//    @Bean
-//    public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
-//        return new PersistenceExceptionTranslationPostProcessor();
-//    }
-
+    
     Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
