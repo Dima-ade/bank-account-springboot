@@ -59,7 +59,7 @@ public class BankConfiguration {
 
         return transactionManager;
     }
-    
+
     Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
