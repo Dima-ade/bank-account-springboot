@@ -20,7 +20,7 @@ public class BankAccountSpringbootApplication {
 		SpringApplication springApplication = new SpringApplication(BankAccountSpringbootApplication.class);
 		springApplication.setWebApplicationType(WebApplicationType.SERVLET);
 
-		Collection<Class<?>> additionalPrimarySources = new HashSet<>();
+		Collection<Class<?>> additionalPrimarySources = new HashSet<Class<?>>();
 		additionalPrimarySources.add(BankConfiguration.class);
 		springApplication.addPrimarySources(additionalPrimarySources);
 		springApplication.run(args);

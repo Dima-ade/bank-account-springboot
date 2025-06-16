@@ -18,12 +18,14 @@
 	<name>bank-account-springboot</name>
 	<description>Demo project for Spring Boot</description>
 	<modules>
-		<module>main</module>
+		<module>startup</module>
+		<module>alfa</module>
+		<module>beta</module>
 	</modules>
 
-	<properties>
+	<!--<properties>
 		<java.version>21</java.version>
-	</properties>
+	</properties>-->
 
 	<dependencies>
 		<dependency>
@@ -133,16 +135,15 @@
 			<artifactId>dto-interfaces-module</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
-
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+<!--	<build>-->
+<!--		<plugins>-->
+<!--			<plugin>-->
+<!--				<groupId>org.springframework.boot</groupId>-->
+<!--				<artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--			</plugin>-->
+<!--		</plugins>-->
+<!--	</build>-->
 
 </project>

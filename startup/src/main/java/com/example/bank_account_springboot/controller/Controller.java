@@ -2,6 +2,8 @@ package com.example.bank_account_springboot.controller;
 
 import com.example.bank_account_springboot.entity.CreateAccountReadObject;
 import jakarta.xml.bind.JAXBException;
+import org.example.IAlfaInterface;
+import org.example.IBetaInterface;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +15,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @RestController
-public class Controller {
+public class Controller implements IAlfaInterface, IBetaInterface {
 
     private AbstractService service;
 
