@@ -7,18 +7,21 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import ro.adela.bank.service.AbstractService;
 import ro.adela.bank.service.DatabaseService;
 import ro.adela.bank.service.JsonFileService;
 import ro.adela.bank.service.XmlFileService;
+import ro.adela.controller.Controller;
 
 import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.example.bank_account_springboot.controller"})
+@ComponentScan(basePackages = {"ro.adela"})
+@Import({Controller.class})
 public class BankAccountSpringbootApplication {
 
 	@Bean

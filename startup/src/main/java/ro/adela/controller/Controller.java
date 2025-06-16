@@ -1,7 +1,7 @@
 package ro.adela.controller;
 
-import ro.adela.entity.CreateAccountReadObject;
 import jakarta.xml.bind.JAXBException;
+import readobject.CreateAccountReadObject;
 import ro.adela.IAlfaInterface;
 import ro.adela.IBetaInterface;
 import org.springframework.http.MediaType;
