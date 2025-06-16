@@ -1,9 +1,9 @@
-package com.example.bank_account_springboot.controller;
+package ro.adela.controller;
 
-import com.example.bank_account_springboot.entity.CreateAccountReadObject;
+import ro.adela.entity.CreateAccountReadObject;
 import jakarta.xml.bind.JAXBException;
-import org.example.IAlfaInterface;
-import org.example.IBetaInterface;
+import ro.adela.IAlfaInterface;
+import ro.adela.IBetaInterface;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,6 @@ import ro.adela.bank.exceptions.JsonProviderException;
 import ro.adela.bank.service.AbstractService;
 
 import java.io.IOException;
-import java.util.Map;
 
 @RestController
 public class Controller implements IAlfaInterface, IBetaInterface {

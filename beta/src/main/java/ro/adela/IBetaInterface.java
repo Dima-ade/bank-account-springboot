@@ -1,4 +1,4 @@
-package org.example;
+package ro.adela;
 
 public interface IBetaInterface {
 }

@@ -1,4 +1,4 @@
-package com.example.bank_account_springboot.entity;
+package ro.adela.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
