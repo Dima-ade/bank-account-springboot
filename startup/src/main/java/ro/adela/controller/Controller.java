@@ -1,6 +1,7 @@
 package ro.adela.controller;
 
 import interfaces.AmountAccount;
+import jakarta.websocket.server.PathParam;
 import jakarta.xml.bind.JAXBException;
 import readobject.AddRemoveMoneyReadObject;
 import readobject.CreateAccountReadObject;
@@ -11,15 +12,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.adela.IRestExceptionHandler;
 import ro.adela.bank.BankAccountDto;
+import ro.adela.bank.OutputSummaryAmountDto;
 import ro.adela.bank.exceptions.JsonProviderException;
 import ro.adela.bank.service.AbstractService;
+import ro.adela.bank.utils.CsvFileWriter;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 
 @RestController
 public class Controller implements IAlfaInterface, IBetaInterface, IRestExceptionHandler {
 
     private AbstractService service;
+
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public Controller(AbstractService service) {
         this.service = service;
@@ -64,5 +72,16 @@ public class Controller implements IAlfaInterface, IBetaInterface, IRestExceptio
         }
 
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(value = "/filter-amounts-by-month", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Collection<OutputSummaryAmountDto>> filterAmountsByMonthOption(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) throws IOException, JAXBException {
+        LocalDate startDateFormatted = LocalDate.parse(startDate, formatter);
+        LocalDate endDateFormatted = LocalDate.parse(endDate, formatter);
+
+        Collection<OutputSummaryAmountDto> outputSummaryAmountDtos = this.service.filterAmountsByMonths(null, startDateFormatted, endDateFormatted);
+        CsvFileWriter.writeCsvFile(true, "output-summary-by-months.csv", outputSummaryAmountDtos);
+
+        return ResponseEntity.ok(outputSummaryAmountDtos);
     }
 }
