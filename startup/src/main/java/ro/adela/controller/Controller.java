@@ -53,4 +53,16 @@ public class Controller implements IAlfaInterface, IBetaInterface, IRestExceptio
 
         return ResponseEntity.ok(result);
     }
+
+    @PostMapping(value = "/remove-money", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AmountAccount> removeMoneyOption(@RequestBody AddRemoveMoneyReadObject removeMoneyReadObject) throws IOException, JsonProviderException, JAXBException {
+        AmountAccount result = this.service.removeAmount(removeMoneyReadObject.getAccountNumber(), removeMoneyReadObject.getAmount(), removeMoneyReadObject.getOperationDate());
+        if (result == null) {
+            System.out.println(String.format("The account %s cannot be found", removeMoneyReadObject.getAccountNumber()));
+        } else {
+            System.out.println(String.format("The balance of the account for %s is %f", result.getAccountHolderName(), result.getBalance()));
+        }
+
+        return ResponseEntity.ok(result);
+    }
 }
