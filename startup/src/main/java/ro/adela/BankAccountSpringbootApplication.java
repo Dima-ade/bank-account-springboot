@@ -14,6 +14,7 @@ import ro.adela.bank.service.DatabaseService;
 import ro.adela.bank.service.JsonFileService;
 import ro.adela.bank.service.XmlFileService;
 import ro.adela.controller.Controller;
+import ro.adela.controller.ApplicationExceptionsHandler;
 
 import java.io.File;
 import java.util.Collection;
@@ -21,7 +22,7 @@ import java.util.HashSet;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"ro.adela"})
-@Import({Controller.class})
+@Import({Controller.class, ApplicationExceptionsHandler.class})
 public class BankAccountSpringbootApplication {
 
 	@Bean
