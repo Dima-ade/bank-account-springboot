@@ -22,13 +22,35 @@
 		<module>alfa</module>
 		<module>beta</module>
 		<module>database</module>
-	</modules>
+        <module>exception-handlers</module>
+    </modules>
 	<properties>
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>21</maven.compiler.target>
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.example</groupId>
+			<artifactId>main-module</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.example</groupId>
 			<artifactId>dto-interfaces-module</artifactId>

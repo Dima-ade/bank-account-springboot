@@ -14,7 +14,6 @@ import ro.adela.bank.service.DatabaseService;
 import ro.adela.bank.service.JsonFileService;
 import ro.adela.bank.service.XmlFileService;
 import ro.adela.controller.Controller;
-import ro.adela.controller.ApplicationExceptionsHandler;
 
 import java.io.File;
 import java.util.Collection;

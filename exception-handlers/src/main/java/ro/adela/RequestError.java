@@ -1,4 +1,4 @@
-package ro.adela.controller;
+package ro.adela;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,5 +9,9 @@ public class RequestError {
 
     public RequestError(String message) {
         this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

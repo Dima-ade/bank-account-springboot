@@ -9,6 +9,7 @@ import ro.adela.IBetaInterface;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ro.adela.IRestExceptionHandler;
 import ro.adela.bank.BankAccountDto;
 import ro.adela.bank.exceptions.JsonProviderException;
 import ro.adela.bank.service.AbstractService;
