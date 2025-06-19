@@ -3,6 +3,7 @@ package ro.adela.controller;
 import interfaces.AmountAccount;
 import jakarta.websocket.server.PathParam;
 import jakarta.xml.bind.JAXBException;
+import lombok.extern.slf4j.Slf4j;
 import readobject.AddRemoveMoneyReadObject;
 import readobject.CreateAccountReadObject;
 import ro.adela.IAlfaInterface;
@@ -23,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 @RestController
+@Slf4j
 public class Controller implements IAlfaInterface, IBetaInterface, IRestExceptionHandler {
 
     private AbstractService service;
@@ -42,7 +44,10 @@ public class Controller implements IAlfaInterface, IBetaInterface, IRestExceptio
     @PostMapping(value = "/create-account", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CreateAccountReadObject> createAccountOption(@RequestBody CreateAccountReadObject createAccountReadObject) throws IOException, JsonProviderException, JAXBException {
         BankAccountDto accountDto = new BankAccountDto(createAccountReadObject.getAccountNumber(), createAccountReadObject.getAccountHolderName(), 0.0, createAccountReadObject.getBirtDate(), createAccountReadObject.getStartDate());
-        System.out.println("Savings account balance: " + accountDto.getBalance()); // Check balance
+
+        if (log.isInfoEnabled()) {
+            log.info("Savings account balance: " + accountDto.getBalance()); // Check balance
+        }
 
         this.service.addAccount(accountDto);
 
@@ -54,9 +59,13 @@ public class Controller implements IAlfaInterface, IBetaInterface, IRestExceptio
         AmountAccount result = this.service.addAmount(addMoneyReadObject.getAccountNumber(), addMoneyReadObject.getAmount(), addMoneyReadObject.getOperationDate());
 
         if (result == null) {
-            System.out.println(String.format("The account %s cannot be found", addMoneyReadObject.getAccountNumber()));
+            if (log.isInfoEnabled()) {
+                log.info(String.format("The account %s cannot be found", addMoneyReadObject.getAccountNumber()));
+            }
         } else {
-            System.out.println(String.format("The balance of the account for %s is %f", result.getAccountHolderName(), result.getBalance()));
+            if (log.isInfoEnabled()) {
+                log.info(String.format("The balance of the account for %s is %f", result.getAccountHolderName(), result.getBalance()));
+            }
         }
 
         return ResponseEntity.ok(result);
@@ -66,9 +75,14 @@ public class Controller implements IAlfaInterface, IBetaInterface, IRestExceptio
     public ResponseEntity<AmountAccount> removeMoneyOption(@RequestBody AddRemoveMoneyReadObject removeMoneyReadObject) throws IOException, JsonProviderException, JAXBException {
         AmountAccount result = this.service.removeAmount(removeMoneyReadObject.getAccountNumber(), removeMoneyReadObject.getAmount(), removeMoneyReadObject.getOperationDate());
         if (result == null) {
-            System.out.println(String.format("The account %s cannot be found", removeMoneyReadObject.getAccountNumber()));
+            if (log.isInfoEnabled()) {
+                log.info(String.format("The account %s cannot be found", removeMoneyReadObject.getAccountNumber()));
+            }
+
         } else {
-            System.out.println(String.format("The balance of the account for %s is %f", result.getAccountHolderName(), result.getBalance()));
+            if (log.isInfoEnabled()) {
+                log.info(String.format("The balance of the account for %s is %f", result.getAccountHolderName(), result.getBalance()));
+            }
         }
 
         return ResponseEntity.ok(result);
