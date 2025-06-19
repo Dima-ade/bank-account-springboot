@@ -84,4 +84,37 @@ public class Controller implements IAlfaInterface, IBetaInterface, IRestExceptio
 
         return ResponseEntity.ok(outputSummaryAmountDtos);
     }
+
+    @GetMapping(value = "/filter-amounts-by-month-and-account", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Collection<OutputSummaryAmountDto>> filterAmountsByMonthAndAccountOption(@RequestParam("accountNumber") Integer accountNumber, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) throws IOException, JAXBException {
+        LocalDate startDateFormatted = LocalDate.parse(startDate, formatter);
+        LocalDate endDateFormatted = LocalDate.parse(endDate, formatter);
+
+        Collection<OutputSummaryAmountDto> outputSummaryAmountDtos = this.service.filterAmountsByMonths(accountNumber, startDateFormatted, endDateFormatted);
+        CsvFileWriter.writeCsvFile(true, "output-summary-by-months-and-account.csv", outputSummaryAmountDtos);
+
+        return ResponseEntity.ok(outputSummaryAmountDtos);
+    }
+
+    @GetMapping(value = "/filter-amounts-by-weeks", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Collection<OutputSummaryAmountDto>> filterAmountsByWeeksOption(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) throws IOException, JAXBException {
+        LocalDate startDateFormatted = LocalDate.parse(startDate, formatter);
+        LocalDate endDateFormatted = LocalDate.parse(endDate, formatter);
+
+        Collection<OutputSummaryAmountDto> outputSummaryAmountDtos = this.service.filterAmountsByWeeks(null, startDateFormatted, endDateFormatted);
+        CsvFileWriter.writeCsvFile(true, "output-summary-by-weeks.csv", outputSummaryAmountDtos);
+
+        return ResponseEntity.ok(outputSummaryAmountDtos);
+    }
+
+    @GetMapping(value = "/filter-amounts-by-week-and-account", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Collection<OutputSummaryAmountDto>> filterAmountsByWeeksAndAccountOption(@RequestParam("accountNumber") Integer accountNumber, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) throws IOException, JAXBException {
+        LocalDate startDateFormatted = LocalDate.parse(startDate, formatter);
+        LocalDate endDateFormatted = LocalDate.parse(endDate, formatter);
+
+        Collection<OutputSummaryAmountDto> outputSummaryAmountDtos = this.service.filterAmountsByWeeks(accountNumber, startDateFormatted, endDateFormatted);
+        CsvFileWriter.writeCsvFile(true, "output-summary-by-weeks-and-account.csv", outputSummaryAmountDtos);
+
+        return ResponseEntity.ok(outputSummaryAmountDtos);
+    }
 }
