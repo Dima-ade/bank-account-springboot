@@ -4,6 +4,7 @@ import interfaces.AmountAccount;
 import jakarta.websocket.server.PathParam;
 import jakarta.xml.bind.JAXBException;
 import lombok.extern.slf4j.Slf4j;
+import readobject.AddInterestRateReadObject;
 import readobject.AddRemoveMoneyReadObject;
 import readobject.CreateAccountReadObject;
 import ro.adela.IAlfaInterface;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.adela.IRestExceptionHandler;
 import ro.adela.bank.BankAccountDto;
+import ro.adela.bank.InterestRateDto;
 import ro.adela.bank.OutputSummaryAmountDto;
 import ro.adela.bank.exceptions.JsonProviderException;
 import ro.adela.bank.service.AbstractService;
@@ -130,5 +132,26 @@ public class Controller implements IAlfaInterface, IBetaInterface, IRestExceptio
         CsvFileWriter.writeCsvFile(true, "output-summary-by-weeks-and-account.csv", outputSummaryAmountDtos);
 
         return ResponseEntity.ok(outputSummaryAmountDtos);
+    }
+
+    @PostMapping(value = "/add-interest-rate", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AddInterestRateReadObject> addInterestRateOption(@RequestBody AddInterestRateReadObject addInterestRateReadObject) throws IOException, JAXBException, JsonProviderException {
+        InterestRateDto interestRateDto = new InterestRateDto(addInterestRateReadObject.getInterestRate(), addInterestRateReadObject.getActivationDate());
+
+        this.service.addInterestRate(interestRateDto);
+
+        return ResponseEntity.ok(addInterestRateReadObject);
+    }
+
+    @GetMapping(value = "/get-interest-rate-by-date", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Double> getInterestRateByDateOption(@RequestParam("providedDate") String providedDate) throws IOException, JAXBException {
+        LocalDate providedDateFormatted = LocalDate.parse(providedDate, formatter);
+
+        Double interestRate = this.service.getInterestManagerProcessor().getInterestByDate(providedDateFormatted);
+        if (log.isInfoEnabled()) {
+            log.info("The interest rate for the provided date " + providedDateFormatted + " is: " + interestRate);
+        }
+
+        return ResponseEntity.ok(interestRate);
     }
 }
