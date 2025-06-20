@@ -7,6 +7,4 @@
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
     </root>
-</configuration>2025-06-19T14:57:23.112+03:00  INFO 6208 --- [bank-account-springboot] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-06-19T14:57:23.118+03:00  INFO 6208 --- [bank-account-springboot] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-06-19T14:57:23.123+03:00  INFO 6208 --- [bank-account-springboot] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+</configuration>
