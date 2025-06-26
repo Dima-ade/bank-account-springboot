@@ -6,14 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
-import ro.adela.bank.service.AbstractService;
-import ro.adela.bank.service.DatabaseService;
-import ro.adela.bank.service.JsonFileService;
-import ro.adela.bank.service.XmlFileService;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import ro.adela.bank.service.*;
 import ro.adela.controller.Controller;
 
 import java.io.File;
@@ -26,7 +25,7 @@ import java.util.HashSet;
 public class BankAccountSpringbootApplication {
 
 	@Bean
-	public AbstractService createService(Environment environment, EntityManagerFactory emf)
+	public AbstractService createService(Environment environment, PersistenceManager persistenceManager)//, EntityManagerFactory emf)
 			throws JAXBException {
 
 		String fileType = environment.getProperty("service.type");
@@ -38,7 +37,7 @@ public class BankAccountSpringbootApplication {
 			File file = new File("account.json");
 			service = new JsonFileService(file);
 		} else if (fileType.equals("db")) {
-			service = new DatabaseService(emf);
+			service = new JpaDatabaseService(persistenceManager);
 		} else {
 			throw new IllegalArgumentException(String.format("Unknown type %s.", fileType));
 		}
