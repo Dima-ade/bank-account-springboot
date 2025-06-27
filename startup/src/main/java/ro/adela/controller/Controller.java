@@ -1,9 +1,14 @@
 package ro.adela.controller;
 
 import interfaces.AmountAccount;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.websocket.server.PathParam;
 import jakarta.xml.bind.JAXBException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import readobject.AddInterestRateReadObject;
 import readobject.AddRemoveMoneyReadObject;
 import readobject.CreateAccountReadObject;
@@ -20,7 +25,7 @@ import ro.adela.bank.exceptions.JsonProviderException;
 import ro.adela.bank.service.AbstractService;
 import ro.adela.bank.utils.CsvFileWriter;
 
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
@@ -153,5 +158,33 @@ public class Controller implements IAlfaInterface, IBetaInterface, IRestExceptio
         }
 
         return ResponseEntity.ok(interestRate);
+    }
+
+    @RequestMapping(value = "download-amounts-by-weeks", method = RequestMethod.GET)
+    public StreamingResponseBody getSteamingFile(HttpServletResponse response, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) throws IOException, JAXBException {
+        LocalDate startDateFormatted = LocalDate.parse(startDate, formatter);
+        LocalDate endDateFormatted = LocalDate.parse(endDate, formatter);
+        response.setContentType("application/csv");
+        response.setHeader("Content-Disposition", "attachment; filename=\"test-file.csv\"");
+        Collection<OutputSummaryAmountDto> outputSummaryAmountDtos = this.service.filterAmountsByWeeks(null, startDateFormatted, endDateFormatted);
+        StreamingResponseBody result = new StreamingResponseBody() {
+            @Override
+            public void writeTo(OutputStream outputStream) throws IOException {
+                final PrintStream printStream = new PrintStream(outputStream);
+                StringBuilder csvLine = new StringBuilder();
+                for(OutputSummaryAmountDto output : outputSummaryAmountDtos) {
+                    csvLine.append(output.getStartDate().toString());
+                    csvLine.append(",");
+                    csvLine.append(output.getEndDate().toString());
+                    csvLine.append(",");
+                    csvLine.append(output.getIn().toString());
+                    csvLine.append(",");
+                    csvLine.append(output.getOut().toString());
+                    printStream.println(csvLine);
+                }
+                printStream.close();
+            }
+        };
+        return result;
     }
 }
