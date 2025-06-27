@@ -4,37 +4,37 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.example</groupId>
+        <groupId>ro.adela</groupId>
         <artifactId>bank-account-springboot</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.example</groupId>
+    <groupId>ro.adela</groupId>
     <artifactId>startup</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>com.example</groupId>
+            <groupId>ro.adela</groupId>
             <artifactId>alfa</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>com.example</groupId>
+            <groupId>ro.adela</groupId>
             <artifactId>beta</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>com.example</groupId>
+            <groupId>ro.adela</groupId>
             <artifactId>database</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>com.example</groupId>
+            <groupId>ro.adela</groupId>
             <artifactId>exception-handlers</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
