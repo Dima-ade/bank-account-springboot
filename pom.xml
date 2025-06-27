@@ -53,7 +53,7 @@
 
 		<dependency>
 			<groupId>ro.adela</groupId>
-			<artifactId>dto-interfaces-module</artifactId>
+			<artifactId>data-model</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -78,7 +78,7 @@
 			</dependency>
 			<dependency>
 				<groupId>ro.adela</groupId>
-				<artifactId>dto-interfaces-module</artifactId>
+				<artifactId>data-model</artifactId>
 				<version>1.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -107,13 +107,6 @@
 				<version>4.0.3</version>
 				<scope>runtime</scope>
 			</dependency>
-
-<!--			&lt;!&ndash; https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api &ndash;&gt;-->
-<!--			<dependency>-->
-<!--				<groupId>javax.persistence</groupId>-->
-<!--				<artifactId>javax.persistence-api</artifactId>-->
-<!--				<version>2.2</version>-->
-<!--			</dependency>-->
 
 			<dependency>
 				<groupId>jakarta.persistence</groupId>
