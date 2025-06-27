@@ -29,7 +29,7 @@ public class DatabaseConfiguration {
 
     public DatabaseConfiguration() {
     }
-    
+
       @Bean
     public DataSource dataSource() {
         BasicDataSource basicDataSource = new BasicDataSource();
