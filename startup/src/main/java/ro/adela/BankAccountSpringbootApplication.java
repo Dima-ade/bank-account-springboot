@@ -30,13 +30,13 @@ public class BankAccountSpringbootApplication {
 
 		String fileType = environment.getProperty("service.type");
 		AbstractService service;
-		if (fileType.equals("xml")) {
+		if ("xml".equals(fileType)) {
 			File file = new File("account.xml");
 			service = new XmlFileService(file);
-		} else if (fileType.equals("json")) {
+		} else if ("json".equals(fileType)) {
 			File file = new File("account.json");
 			service = new JsonFileService(file);
-		} else if (fileType.equals("db")) {
+		} else if ("db".equals(fileType)) {
 			service = new JpaDatabaseService(persistenceManager);
 		} else {
 			throw new IllegalArgumentException(String.format("Unknown type %s.", fileType));
