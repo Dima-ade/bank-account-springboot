@@ -47,13 +47,13 @@
 		</dependency>
 
 		<dependency>
-			<groupId>ro.adela</groupId>
-			<artifactId>main-module</artifactId>
+			<groupId>ro.adela.bank.accounts</groupId>
+			<artifactId>data-model</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>ro.adela</groupId>
-			<artifactId>data-model</artifactId>
+			<groupId>ro.adela.bank.accounts</groupId>
+			<artifactId>application</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -77,15 +77,17 @@
 				<version>1.18.30</version>
 			</dependency>
 			<dependency>
-				<groupId>ro.adela</groupId>
+				<groupId>ro.adela.bank.accounts</groupId>
 				<artifactId>data-model</artifactId>
 				<version>1.0-SNAPSHOT</version>
 			</dependency>
+
 			<dependency>
-				<groupId>ro.adela</groupId>
-				<artifactId>main-module</artifactId>
+				<groupId>ro.adela.bank.accounts</groupId>
+				<artifactId>application</artifactId>
 				<version>1.0-SNAPSHOT</version>
 			</dependency>
+
 			<!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
 			<dependency>
 				<groupId>jakarta.servlet</groupId>
