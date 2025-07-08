@@ -172,7 +172,17 @@ public class Controller implements IAlfaInterface, IBetaInterface, IRestExceptio
             public void writeTo(OutputStream outputStream) throws IOException {
                 final PrintStream printStream = new PrintStream(outputStream);
                 StringBuilder csvLine = new StringBuilder();
+                csvLine.setLength(0);
+                csvLine.append("startDate");
+                csvLine.append(",");
+                csvLine.append("endDate");
+                csvLine.append(",");
+                csvLine.append("in");
+                csvLine.append(",");
+                csvLine.append("out");
+                printStream.println(csvLine);
                 for(OutputSummaryAmountDto output : outputSummaryAmountDtos) {
+                    csvLine.setLength(0);
                     csvLine.append(output.getStartDate().toString());
                     csvLine.append(",");
                     csvLine.append(output.getEndDate().toString());
@@ -180,6 +190,48 @@ public class Controller implements IAlfaInterface, IBetaInterface, IRestExceptio
                     csvLine.append(output.getIn().toString());
                     csvLine.append(",");
                     csvLine.append(output.getOut().toString());
+                    printStream.println(csvLine);
+                }
+                printStream.close();
+            }
+        };
+        return result;
+    }
+
+    @RequestMapping(value = "download-amounts-by-weeks-and-account", method = RequestMethod.GET)
+    public StreamingResponseBody getSteamingFileByAccount(HttpServletResponse response, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, @RequestParam("accountNumber") Integer accountNumber) throws IOException, JAXBException {
+        LocalDate startDateFormatted = LocalDate.parse(startDate, formatter);
+        LocalDate endDateFormatted = LocalDate.parse(endDate, formatter);
+        response.setContentType("application/csv");
+        response.setHeader("Content-Disposition", "attachment; filename=\"test-file.csv\"");
+        Collection<OutputSummaryAmountDto> outputSummaryAmountDtos = this.service.filterAmountsByWeeks(accountNumber, startDateFormatted, endDateFormatted);
+        StreamingResponseBody result = new StreamingResponseBody() {
+            @Override
+            public void writeTo(OutputStream outputStream) throws IOException {
+                final PrintStream printStream = new PrintStream(outputStream);
+                StringBuilder csvLine = new StringBuilder();
+                csvLine.setLength(0);
+                csvLine.append("startDate");
+                csvLine.append(",");
+                csvLine.append("endDate");
+                csvLine.append(",");
+                csvLine.append("in");
+                csvLine.append(",");
+                csvLine.append("out");
+                csvLine.append(",");
+                csvLine.append("accountNumber");
+                printStream.println(csvLine);
+                for(OutputSummaryAmountDto output : outputSummaryAmountDtos) {
+                    csvLine.setLength(0);
+                    csvLine.append(output.getStartDate().toString());
+                    csvLine.append(",");
+                    csvLine.append(output.getEndDate().toString());
+                    csvLine.append(",");
+                    csvLine.append(output.getIn().toString());
+                    csvLine.append(",");
+                    csvLine.append(output.getOut().toString());
+                    csvLine.append(",");
+                    csvLine.append(output.getAccountNumber().toString());
                     printStream.println(csvLine);
                 }
                 printStream.close();
