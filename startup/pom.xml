@@ -16,27 +16,33 @@
 
     <dependencies>
         <dependency>
-            <groupId>ro.adela</groupId>
+            <groupId>ro.adela.bankaccount.springboot</groupId>
             <artifactId>alfa</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>ro.adela</groupId>
+            <groupId>ro.adela.bankaccount.springboot</groupId>
             <artifactId>beta</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>ro.adela</groupId>
+            <groupId>ro.adela.bankaccount.springboot</groupId>
             <artifactId>database</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>ro.adela</groupId>
+            <groupId>ro.adela.bankaccount.springboot</groupId>
             <artifactId>exception-handlers</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ro.adela.bank.accounts</groupId>
+            <artifactId>console-inputs</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>

@@ -21,6 +21,7 @@ import ro.adela.IRestExceptionHandler;
 import ro.adela.bank.BankAccountDto;
 import ro.adela.bank.InterestRateDto;
 import ro.adela.bank.OutputSummaryAmountDto;
+import ro.adela.bank.OutputSummaryDayAmountDto;
 import ro.adela.bank.exceptions.JsonProviderException;
 import ro.adela.bank.service.AbstractService;
 import ro.adela.bank.utils.CsvFileWriter;
@@ -239,4 +240,39 @@ public class Controller implements IAlfaInterface, IBetaInterface, IRestExceptio
         };
         return result;
     }
+
+    @RequestMapping(value = "download-amounts-by-days", method = RequestMethod.GET)
+    public StreamingResponseBody getSteamingFileByDays(HttpServletResponse response, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) throws IOException, JAXBException {
+        LocalDate startDateFormatted = LocalDate.parse(startDate, formatter);
+        LocalDate endDateFormatted = LocalDate.parse(endDate, formatter);
+        response.setContentType("application/csv");
+        response.setHeader("Content-Disposition", "attachment; filename=\"test-file.csv\"");
+        Collection<OutputSummaryDayAmountDto> outputSummaryAmountDtos = this.service.filterAmountsByDays(null, startDateFormatted, endDateFormatted);
+        StreamingResponseBody result = new StreamingResponseBody() {
+            @Override
+            public void writeTo(OutputStream outputStream) throws IOException {
+                final PrintStream printStream = new PrintStream(outputStream);
+                StringBuilder csvLine = new StringBuilder();
+                csvLine.setLength(0);
+                csvLine.append("day");
+                csvLine.append(",");
+                csvLine.append("in");
+                csvLine.append(",");
+                csvLine.append("out");
+                printStream.println(csvLine);
+                for(OutputSummaryDayAmountDto output : outputSummaryAmountDtos) {
+                    csvLine.setLength(0);
+                    csvLine.append(output.getDay().toString());
+                    csvLine.append(",");
+                    csvLine.append(output.getIn().toString());
+                    csvLine.append(",");
+                    csvLine.append(output.getOut().toString());
+                    printStream.println(csvLine);
+                }
+                printStream.close();
+            }
+        };
+        return result;
+    }
+
 }
